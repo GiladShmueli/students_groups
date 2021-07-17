@@ -1,4 +1,8 @@
 const questionList = document.querySelector('#question-list');
+let idarr = [];
+let answers = [];
+let arrn = 0;
+let score = 0;
 
 // create element & render test
 function renderTest(doc){
@@ -9,6 +13,10 @@ function renderTest(doc){
     qdiv.id = doc.id;
     question.textContent = doc.data().question;
     qdiv.appendChild(question);
+
+    idarr[arrn] = doc.id;
+    answers[arrn] = doc.data().answer;
+    arrn++;
 
     for(let i = 0; i < 4; i++)
     {
@@ -39,3 +47,53 @@ db.collection('tests1').get().then(snapshot => {
         renderTest(doc);
     });
 });
+
+arrn = 0;
+
+
+function getscore(i) {
+    
+    
+
+    for(let j = 0; j < 4;j++)
+    {
+        let ques = document.getElementById("ans" + j + " " + idarr[i]);
+
+
+        if(ques.checked == true)
+        {
+            console.log("label[for=" + "ans" + j + " " + idarr[i] + "]");
+
+            let lbl = ques.nextElementSibling;
+            //var ids = "label[for=" + "ans" + j + " " + idarr[i] + "]";
+            //let lbl = document.querySelector(ids);
+            let txt = lbl.innerHTML;
+            //txt = lbl.innerHTML;
+
+            if(txt == answers[i])
+            {
+                score++;
+            }
+        }
+    }     
+
+}
+
+document.getElementById('submit').onclick = function() {
+    score = 0;
+
+    for(let i = 0; i< idarr.length;i++)
+    {
+        getscore(i);
+    }
+    
+    let pel = document.getElementById('score');
+
+    //pel.innerHTML = "";
+
+    let tscore = (score / answers.length) * 100;
+    var tscoref = tscore.toFixed(2);
+
+    pel.innerHTML = "your score is: " + tscoref.toString();
+}
+
