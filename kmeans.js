@@ -1,7 +1,7 @@
 function init_centers(k=4) {
     let lines = [];
     for(let i=1 ; i < k+1 ; i++){
-       lines[i] = 100*i/(k+1);
+       lines[i-1] = 100*i/(k+1);
     }
     return lines;
 }
@@ -56,5 +56,19 @@ function k_means(scores, k=4){
     return tags;
 }
 
-let scores = [0, 0.45, 0.12, 0.54, 0.89, 0.90, 1.00, 0.03, 0.50, 0.17, 0.56, 0.18, 0.85, 0.87]
+function normalize_grades(scores) {
+    let max = Math.max.apply(null, scores);
+    let min = Math.min.apply(null, scores);
+    let n_scores = new Array();
+    scores.forEach(element => {
+        n_scores.push(100*(element-min)/(max-min))
+    });
+    return n_scores;
+}
+
+/*let scores = [0, 45, 12, 54, 89, 90, 100, 3, 50, 17, 56, 18, 85, 87];
 console.log(k_means(scores));
+
+scores = [50, 20, 30, 50, 40, 45, 25, 35, 60, 65, 60, 60];
+console.log(k_means(normalize_grades(scores)));*/
+
