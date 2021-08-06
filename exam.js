@@ -61,5 +61,5 @@ function mix_and_split(quiz, form_length=30) {
 }
 
 
-console.log(shuffle_and_split(Object.entries(quiz1), 2));
-console.log(mix_and_split(Object.entries(quiz1), 2));
+/*console.log(shuffle_and_split(Object.entries(quiz1), 2));
+console.log(mix_and_split(Object.entries(quiz1), 2));*/
