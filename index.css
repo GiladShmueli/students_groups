@@ -1,0 +1,65 @@
+body{
+    background: #2CA6A4;
+    font-family: ubuntu;
+}
+
+h1{
+    color: #fff;
+    font-size: 64px;
+    letter-spacing: 2px;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.content{
+    background:#a8ece6;
+    max-width: 960px;
+    margin: 10px auto;
+    padding:  30px 60px;
+    border-radius: 10px 120px 10px 10px;
+}
+
+.li{
+    direction: rtl;
+    line-height: 45px;
+    text-align: right;
+    padding: 40px;
+    font-weight: bold;
+    background:#79BCB8;
+    font-size: 30px;
+    color:black;
+}
+
+.li:nth-child(even){
+    direction: rtl;
+    text-align: right;
+    padding: 20px;
+    background:#9DD9D2;
+}
+
+
+.form input{
+    float: center;
+    width: 38%;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid #eee;
+    margin: 0 1%;
+    padding: 10px;
+    display: block;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.button{
+    border: 0;
+    font-size: 40px;
+    float: center;
+    background:#a8ece6;
+    border-radius: 30px;
+    padding: 60px;
+    width: 27%;
+    font-weight: bold;
+    font-family: ubuntu;
+    color:black;
+}

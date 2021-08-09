@@ -37,7 +37,7 @@ function renderTest(doc){
         qdiv.appendChild(lb1);
         qdiv.appendChild(br1);
     }
-    
+    qdiv.setAttribute("class", "li");
     questionList.appendChild(qdiv);
 }
 
