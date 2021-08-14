@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <!--<link rel="stylesheet" href="styles.css">--> 
+        <style>
+            /* The container */
+            .container {
+              display: block;
+              position: relative;
+              padding-left: 35px;
+              margin-bottom: 12px;
+              cursor: pointer;
+              font-size: 22px;
+              -webkit-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+            }
+            
+            /* Hide the browser's default radio button */
+            .container input {
+              position: absolute;
+              opacity: 0;
+              cursor: pointer;
+            }
+            
+            /* Create a custom radio button */
+            .checkmark {
+              position: absolute;
+              top: 0;
+              left: 0;
+              height: 25px;
+              width: 25px;
+              background-color: #eee;
+              border-radius: 50%;
+            }
+            
+            /* On mouse-over, add a grey background color */
+            .container:hover input ~ .checkmark {
+              background-color: #ccc;
+            }
+            
+            /* When the radio button is checked, add a blue background */
+            .container input:checked ~ .checkmark {
+              background-color: #2196F3;
+            }
+            
+            /* Create the indicator (the dot/circle - hidden when not checked) */
+            .checkmark:after {
+              content: "";
+              position: absolute;
+              display: none;
+            }
+            
+            /* Show the indicator (dot/circle) when checked */
+            .container input:checked ~ .checkmark:after {
+              display: block;
+            }
+            
+            /* Style the indicator (dot/circle) */
+            .container .checkmark:after {
+                 top: 9px;
+                left: 9px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: white;
+            }
+            </style>
+    </head>
+    
+    <body>
+
+        <h1>personal page</h1>
+
+        <p id="username"></p>
+
+        <p id="name"></p>
+
+        <p id="score"></p>
+
+        <p id="class"></p>
+
+        <div>
+            <button id="submit">start test</button>
+        </div>
+
+        <p id="space"></p>
+        
+        <div>
+            <button id="sout">sign out</button>
+        </div>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
+
+            <script>
+                // Your web app's Firebase configuration
+                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                var firebaseConfig = {
+                    apiKey: "AIzaSyC19LnBibe5aXDwNvvp7JRcgSoOppwu90Y",
+                    authDomain: "tests-project-telhai.firebaseapp.com",
+                    projectId: "tests-project-telhai",
+                    storageBucket: "tests-project-telhai.appspot.com",
+                    messagingSenderId: "859259632869",
+                    appId: "1:859259632869:web:c1f2364a742d31f844e80c",
+                    measurementId: "G-HW876M5D5L"
+                };
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+                firebase.analytics();
+                const db = firebase.firestore();
+                db.settings({timesnapsInSnapshots: true});
+            </script>
+
+        <script src="/static/person.js"></script>
+    </body>
+</html>
