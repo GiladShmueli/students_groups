@@ -46,17 +46,28 @@ function renderStudents(doc){
 
 
 
-
+let grades = [];
 document.getElementById('submit').onclick = function() {
     //window.location.href='/test/' + url_string_user;
     if(posted == 0)
     {
+        
         posted = 1;
         db.collection('students').get().then(snapshot => {
+            
             snapshot.docs.forEach(doc => {
-                renderStudents(doc);
+                if(doc.data().class==className)
+                {
+                    grades.push(parseFloat(doc.data().score));
+                    renderStudents(doc);
+                }
             });
-        })
+            
+        }).then(temp => {
+            grades.sort((a, b) => {return a - b;});
+            let img = createGraphPNG(grades);
+            document.getElementById("graph").appendChild(img);
+        });
     }
 
 }

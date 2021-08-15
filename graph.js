@@ -1,10 +1,10 @@
-let test_results = [98, 29.8, 48, 29, 29,
-                    40, 70.42, 80, 81.34, 89,
+// let test_results = [98, 29.8, 48, 29, 29,
+//                     40, 70.42, 80, 81.34, 89,
                     
-                    22.17, 55, 55,
-                    66, 34, 56, 88, 99,
-                    0, 100, 0, 0, 100];
-test_results.sort((a, b) => a - b); //using lambda, otherwise sorts as strings, 100 is definitely not before 20 ;)
+//                     22.17, 55, 55,
+//                     66, 34, 56, 88, 99,
+//                     0, 100, 0, 0, 100];
+// test_results.sort((a, b) => a - b); //using lambda, otherwise sorts as strings, 100 is definitely not before 20 ;)
 
 
 const WIDTH = 420;
@@ -12,7 +12,6 @@ const HEIGHT = 300;
 const PADDING = 10.5;
 const TXTZONE = 22;
 
-createGraphPNG(test_results);
 function createGraphPNG(test_results) {
     const tests_cnt = test_results.length;
     let canvas = document.createElement("canvas");
@@ -32,15 +31,14 @@ function createGraphPNG(test_results) {
         x = PADDING + TXTZONE + i * WIDTH / tests_cnt;
         y = HEIGHT + PADDING - test_results[i] * 3;
         drawLine(x, y, ctx);
-
     }
     makeCircle(x, y, ctx);
 
-    var img = canvas.toDataURL("image.png");
-    document.write('<img id="grades_graph" src="' + img + '" />');
+    let imgsrc = canvas.toDataURL("image.png");
+    let img = document.createElement("img");
+    img.src = imgsrc;
+    return img;
 }
-
-//document.body.appendChild(canvas);
 
 function drawLine(x, y, ctx) {  
     ctx.lineTo(x, y);
