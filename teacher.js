@@ -33,13 +33,13 @@ db.collection('teachers1').get().then(snapshot => {
 })
 
 
-
 function renderStudents(doc){
 
     let qdiv = document.createElement('div');
     let name = document.createElement('p');
 
-    name.textContent = "name: " + doc.data().name  +" score: " +  doc.data().score;
+    name.textContent = "name: " + doc.data().name  +" score: " +  doc.data().score +
+    "\t group: " + doc.data().group;
     qdiv.appendChild(name);
     sList.appendChild(qdiv);
 }
@@ -51,7 +51,7 @@ document.getElementById('submit').onclick = function() {
     //window.location.href='/test/' + url_string_user;
     if(posted == 0)
     {
-        
+       grades = []; 
         posted = 1;
         db.collection('students').get().then(snapshot => {
             
@@ -64,12 +64,41 @@ document.getElementById('submit').onclick = function() {
             });
             
         }).then(temp => {
+            console.log(grades);
             grades.sort((a, b) => {return a - b;});
             let img = createGraphPNG(grades);
             document.getElementById("graph").appendChild(img);
         });
     }
 
+}
+
+document.getElementById('setgroups').onclick = function() {
+    db.collection('students').get().then(snapshot => {
+       grades=[];
+        snapshot.docs.forEach(doc => {
+            if(doc.data().class==className)
+            {
+                grades.push(parseFloat(doc.data().score));
+            }
+        });
+        let groups = k_means(normalize_grades(grades));
+        console.log(groups);
+        let cnt = 0;
+        snapshot.docs.forEach(item => {
+            if(item.data().class==className)
+            {
+                db.collection('students').doc(item.id).update({
+                    group: groups[cnt]
+                })
+                cnt++;
+            }
+        });
+    })
+}
+
+document.getElementById('addstudent').onclick = function() {
+    window.location.href = '/add/' + url_string_user 
 }
 
 document.getElementById('sout').onclick = function() {

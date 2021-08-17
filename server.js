@@ -18,6 +18,10 @@ app.get("/personal/:x", (req,res)=>{
     res.sendFile(path.resolve("personal.html"));
 });
 
+app.get("/add/:x", (req,res)=>{
+    res.sendFile(path.resolve("add_student.html"));
+});
+
 app.get("/test/:x", (req,res)=>{
     res.sendFile(path.resolve("test.html"));
 });

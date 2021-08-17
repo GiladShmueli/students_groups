@@ -1,5 +1,5 @@
 {
-  "name": "try2",
+  "name": "st_g",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -8,7 +8,7 @@
     "start": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "gilad <giladsh697@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"

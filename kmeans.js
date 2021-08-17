@@ -6,7 +6,7 @@ function init_centers(k=4) {
     return lines;
 }
 
-function pick_closest_center(centers, score){
+function pick_closest_center(centers, score) {
     let result = 0;
     let distance = Math.abs(score-centers[0]);
     for(let i=1 ; i<centers.length ; i++) {
@@ -57,6 +57,9 @@ function k_means(scores, k=4){
 }
 
 function normalize_grades(scores) {
+    scores = scores.filter(function (value) {
+        return !Number.isNaN(value);
+    });
     let max = Math.max.apply(null, scores);
     let min = Math.min.apply(null, scores);
     let n_scores = new Array();
@@ -66,9 +69,4 @@ function normalize_grades(scores) {
     return n_scores;
 }
 
-/*let scores = [0, 45, 12, 54, 89, 90, 100, 3, 50, 17, 56, 18, 85, 87];
-console.log(k_means(scores));
-
-scores = [50, 20, 30, 50, 40, 45, 25, 35, 60, 65, 60, 60];
-console.log(k_means(normalize_grades(scores)));*/
 
