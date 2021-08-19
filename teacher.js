@@ -73,27 +73,35 @@ document.getElementById('submit').onclick = function() {
 
 }
 
+let info = []; //info of students as objects {name:"", id:"", score:""}
+let dbg;
 document.getElementById('setgroups').onclick = function() {
     db.collection('students').get().then(snapshot => {
-       grades=[];
+        info = [];
         snapshot.docs.forEach(doc => {
-            if(doc.data().class==className)
+            if(doc.data().class==className && doc.data().score >= 0)
             {
-                grades.push(parseFloat(doc.data().score));
+                info.push({
+                    name: doc.data().name,
+                    id: doc.id,
+                    score: doc.data().score
+                });
             }
         });
-        let groups = k_means(normalize_grades(grades));
-        console.log(groups);
-        let cnt = 0;
-        snapshot.docs.forEach(item => {
-            if(item.data().class==className)
-            {
-                db.collection('students').doc(item.id).update({
-                    group: groups[cnt]
-                })
-                cnt++;
-            }
-        });
+        const {tags, centers} = k_means(normalize_grades(info.map(student => student.score)));
+        console.log(tags);
+        dbg=centers;
+        console.log(centers);
+        // let cnt = 0;
+        // snapshot.docs.forEach(item => {
+        //     if(item.data().class==className)
+        //     {
+        //         db.collection('students').doc(item.id).update({
+        //             group: groups[cnt]
+        //         })
+        //         cnt++;
+        //     }
+        // });
     })
 }
 
