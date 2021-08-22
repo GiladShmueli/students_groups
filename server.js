@@ -22,6 +22,10 @@ app.get("/add/:x", (req,res)=>{
     res.sendFile(path.resolve("add_student.html"));
 });
 
+app.get("/addq/:x", (req,res)=>{
+    res.sendFile(path.resolve("add_question.html"));
+});
+
 app.get("/test/:x", (req,res)=>{
     res.sendFile(path.resolve("test.html"));
 });

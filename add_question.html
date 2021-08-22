@@ -70,16 +70,31 @@
     
     <body>
 
-        <h1>start the test</h1>
+        <h1>add/remove question page</h1>
 
         <div class="content">
 
-            <form id="question-list"></form>
+            <form id="sign_in">
 
-        </div>
-        
-        <div>
-          <button id="submit">Get score</button>
+                <input type="text" name="question" placeholder="question"/>
+                <p></p>
+                <input type="text" name="answer" placeholder="answer"/>
+                <p></p>
+                <input type="text" name="option1" placeholder="option 1"/>
+                <p></p>
+                <input type="text" name="option2" placeholder="option 2"/>
+                <p></p>
+                <input type="text" name="option3" placeholder="option 3"/>
+                <p></p>
+                <input type="text" name="option4" placeholder="option 4"/>
+                <p></p>
+                <button id="sign">submit</button>
+            </form>
+            
+            <p id="res"></p>
+
+            <ul id="question-list"></ul>
+
         </div>
 
 
@@ -110,6 +125,6 @@
                 db.settings({timesnapsInSnapshots: true});
             </script>
 
-        <script src="/static/test.js"></script>
+        <script src="/static/add_question.js"></script>
     </body>
 </html>
