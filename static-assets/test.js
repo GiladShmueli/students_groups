@@ -115,7 +115,7 @@ document.getElementById('submit').onclick = function() {
     //pel.innerHTML = "";
 
     let tscore = (score / answers.length) * 100;
-    var tscoref = tscore.toFixed(2);
+    var tscoref = parseFloat(tscore.toFixed(2));
 
 
     //let url_string = document.location.href;

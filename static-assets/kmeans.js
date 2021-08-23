@@ -5,7 +5,7 @@
 //
 //center objects: {tag: a numeric tag, mean: where the center is located, count: how many items are related to the center}
 
-function init_centers(k) {
+function initCenters(k) {
     let centers = [];
     for(let i=1 ; i < k+1 ; i++) {
        centers.push({
@@ -19,7 +19,7 @@ function init_centers(k) {
 
 //choosing the closest center
 //currently working in 1 dimension
-function pick_closest_center(centers, score) {
+function pickClosestCenter(centers, score) {
     let result = 0;
     let means = centers.map(c => c.mean);
     let distance = Math.abs(score-means[0]);
@@ -43,7 +43,7 @@ function mean(add, old_mean) {
 }
 
 //calculate the centers again to adjust to current tags (works per iteration, at the end)
-function redefine_centers(scores, tags, k) {
+function redefineCenters(scores, tags, k) {
     let centers = [];
     let i;
     for(i=0; i<k; i++) {
@@ -56,14 +56,6 @@ function redefine_centers(scores, tags, k) {
         if (centers[tag].count == 0) {
             centers[tag].count = 1;
             centers[tag].mean = scores[i];
-        } else {
-            if(tag==3) { console.log("before ", centers[tag].mean),
-                         console.log("score is " + scores[i])};
-            centers[tag] = {tag: tag,
-                            mean: mean(scores[i], [centers[tag].mean, centers[tag].count]),
-                            count: centers[tag].count + 1 
-                        };
-            if(tag==3) { console.log("after ", centers[tag].mean)};
         }
     }
     return centers;
@@ -71,17 +63,17 @@ function redefine_centers(scores, tags, k) {
 
 
 //K means algorithm main function
-function k_means(scores, k=4){
-    let centers = init_centers(k);
+function kMeans(scores, k=4){
+    let centers = initCenters(k);
     console.log(centers);
     let tags = new Array(scores.length);
     let past;
     do {
         past = tags;
         for(var i=0; i< scores.length; i++){
-            tags[i] = pick_closest_center(centers, scores[i]);
+            tags[i] = pickClosestCenter(centers, scores[i]);
         }
-        centers = redefine_centers(scores, tags, k);
+        centers = redefineCenters(scores, tags, k);
     }while(past!=tags)
     console.log("tags");
     console.log(tags);
@@ -91,7 +83,7 @@ function k_means(scores, k=4){
 //normalizing scores to be between 0-100
 //would usually stretch scores
 //since it's very likely the scores spread on a smaller range
-function normalize_grades(scores) {
+function normalizeGrades(scores) {
     scores = scores.filter(function (value) {
         if(value < 0)
             value = NaN;
@@ -107,20 +99,12 @@ function normalize_grades(scores) {
     return n_scores;
 }
 
-function reverse_normalization(centers, min, max) {
-    //centers = centers.filter(function (value){
-    //    return !Number.isNaN(value);
-    //});
-    let r_centers = new Array();
-    centers.forEach(element => {
-        if(Number.isNaN(element)){
-            r_centers.push(NaN);
-            
+function reverseNormalization(centers, min, max) {
+    centers.forEach(center => {
+        if(!Number.isNaN(center)){
+            console.log(center);
+            center.mean = min + center.mean*(max-min)/100;
         }
-        else{
-            r_centers.push(100*(element+min)/(max+min));
-        }
-        
     });
-    return r_centers;
+    return centers;
 }

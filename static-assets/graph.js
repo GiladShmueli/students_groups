@@ -12,7 +12,19 @@ const HEIGHT = 300;
 const PADDING = 10.5;
 const TXTZONE = 22;
 
-function createGraphPNG(test_results) {
+function createGraphPNG(test_results, score=NaN) {
+    let canvas;
+    if(Number.isNaN(score)) //for teacher
+        canvas = drawGraph(test_results);
+    else    //for student
+        canvas = drawMyGraph(test_results, score);
+    let imgsrc = canvas.toDataURL("image.png");
+    let img = document.createElement("img");
+    img.src = imgsrc;
+    return img;
+}
+
+function drawGraph(test_results) {
     const tests_cnt = test_results.length;
     let canvas = document.createElement("canvas");
     canvas.width = WIDTH + TXTZONE + 2 * PADDING;
@@ -25,7 +37,7 @@ function createGraphPNG(test_results) {
     drawGrid(ctx, tests_cnt, 10);
     ctx.fillStyle = "#55AAEE";
     ctx.strokeStyle = "#55AAEE";
-    
+
     for (let i = 0; i < tests_cnt; i++) {
         makeCircle(x, y, ctx);
         x = PADDING + TXTZONE + i * WIDTH / tests_cnt;
@@ -33,11 +45,52 @@ function createGraphPNG(test_results) {
         drawLine(x, y, ctx);
     }
     makeCircle(x, y, ctx);
+    return canvas;
+}
 
-    let imgsrc = canvas.toDataURL("image.png");
-    let img = document.createElement("img");
-    img.src = imgsrc;
-    return img;
+//draw graph and mark my score (a student's score)
+function drawMyGraph(test_results, score) {
+    const tests_cnt = test_results.length;
+    let marked = false;
+    let color = "#55AAEE";
+    let canvas = document.createElement("canvas");
+    canvas.width = WIDTH + TXTZONE + 2 * PADDING;
+    canvas.height = HEIGHT + 3 * PADDING;
+    let ctx = canvas.getContext("2d");
+    let x, y;
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "black";
+    drawGrid(ctx, tests_cnt, 10);
+    ctx.fillStyle = color;
+    ctx.strokeStyle = color;
+
+    x = PADDING + TXTZONE + 0 * WIDTH / tests_cnt;
+    y = HEIGHT + PADDING - test_results[0] * 3;
+    makeCircle(x, y, ctx);
+
+    for (let i = 0; i < tests_cnt; i++) {
+        if(!marked)
+        {
+            if(test_results[i]===score)
+            {
+                ctx.fillStyle = "#FF1A10";
+                marked = true;
+            }
+        } else
+        {
+            ctx.fillStyle = color;
+            ctx.strokeStyle = color;
+        }
+        console.log(test_results[i] + " " + ctx.fillStyle);
+        x = PADDING + TXTZONE + i * WIDTH / tests_cnt;
+        y = HEIGHT + PADDING - test_results[i] * 3;
+        drawLine(x, y, ctx);
+        makeCircle(x, y, ctx);
+    }
+    
+    return canvas;
+
 }
 
 function drawLine(x, y, ctx) {  

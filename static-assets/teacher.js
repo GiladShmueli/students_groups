@@ -69,10 +69,8 @@ document.getElementById('submit').onclick = function() {
                     });
                 }
             });
-            const {groups, centers} = k_means(normalize_grades(info.map(student => student.score)));
+            const {groups, centers} = kMeans(normalizeGrades(info.map(student => student.score)));
             cen = centers;
-            console.log(groups);
-            console.log(centers);
             let cnt = 0;
             snapshot.docs.forEach(item => {
                 if(item.data().class==className && item.data().score >= 0)

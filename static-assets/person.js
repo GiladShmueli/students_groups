@@ -4,7 +4,8 @@ console.log('in person');
 let url_string = document.location.href;
 var url_string_user = url_string.substr(url_string.lastIndexOf('/') + 1,url_string.length);
 console.log(url_string_user);
-
+let className;
+let myScore = NaN;
 
 function get_person(doc){
     if(url_string_user == doc.id)
@@ -19,6 +20,8 @@ function get_person(doc){
         nme.innerHTML = "name: " + doc.data().name;
         scre.innerHTML = "score: " + doc.data().score.toString();
         cls.innerHTML = "class: " + doc.data().class;
+        className = doc.data().class;
+        myScore = doc.data().score;
     }
 }
 
@@ -34,6 +37,31 @@ db.collection('students').doc(url_string_user).get().then(snapshot => {
 
 })
 
+let info = [];
+let groups, centers;
+
+document.getElementById('show_graph').onclick = function() {
+    db.collection('students').get().then(snapshot => {
+        info = [];
+        snapshot.docs.forEach(doc => {
+            if(doc.data().class==className && doc.data().score >= 0)
+            {
+                info.push({
+                    name: doc.data().name,
+                    id: doc.id,
+                    score: doc.data().score
+                });
+             }
+        });
+        groups, centers = kMeans(normalizeGrades(info.map(student => student.score)));
+        
+    }).then(temp => {
+        let grades = info.map(i =>i.score);
+        grades.sort((a, b) => {return a - b;});
+        let img = createGraphPNG(grades, myScore);
+        document.getElementById("graph").appendChild(img);
+    });
+}
 
 document.getElementById('submit').onclick = function() {
     window.location.href='/test/' + url_string_user;
