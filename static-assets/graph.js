@@ -82,7 +82,6 @@ function drawMyGraph(test_results, score) {
             ctx.fillStyle = color;
             ctx.strokeStyle = color;
         }
-        console.log(test_results[i] + " " + ctx.fillStyle);
         x = PADDING + TXTZONE + i * WIDTH / tests_cnt;
         y = HEIGHT + PADDING - test_results[i] * 3;
         drawLine(x, y, ctx);

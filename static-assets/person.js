@@ -14,12 +14,13 @@ function get_person(doc){
         let nme = document.getElementById("name");
         let scre = document.getElementById("score");
         let cls = document.getElementById("class");
-
+        let grp = document.getElementById("group");
 
         usrnme.innerHTML = "username: " + doc.data().username;
         nme.innerHTML = "name: " + doc.data().name;
         scre.innerHTML = "score: " + doc.data().score.toString();
         cls.innerHTML = "class: " + doc.data().class;
+        grp.innerHTML = "group: " + doc.data().group;
         className = doc.data().class;
         myScore = doc.data().score;
     }
