@@ -1,99 +1,44 @@
 <html>
     <head>
-        <!--<link rel="stylesheet" href="styles.css">--> 
-        <style>
-            /* The container */
-            .container {
-              display: block;
-              position: relative;
-              padding-left: 35px;
-              margin-bottom: 12px;
-              cursor: pointer;
-              font-size: 22px;
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-            }
-            
-            /* Hide the browser's default radio button */
-            .container input {
-              position: absolute;
-              opacity: 0;
-              cursor: pointer;
-            }
-            
-            /* Create a custom radio button */
-            .checkmark {
-              position: absolute;
-              top: 0;
-              left: 0;
-              height: 25px;
-              width: 25px;
-              background-color: #eee;
-              border-radius: 50%;
-            }
-            
-            /* On mouse-over, add a grey background color */
-            .container:hover input ~ .checkmark {
-              background-color: #ccc;
-            }
-            
-            /* When the radio button is checked, add a blue background */
-            .container input:checked ~ .checkmark {
-              background-color: #2196F3;
-            }
-            
-            /* Create the indicator (the dot/circle - hidden when not checked) */
-            .checkmark:after {
-              content: "";
-              position: absolute;
-              display: none;
-            }
-            
-            /* Show the indicator (dot/circle) when checked */
-            .container input:checked ~ .checkmark:after {
-              display: block;
-            }
-            
-            /* Style the indicator (dot/circle) */
-            .container .checkmark:after {
-                 top: 9px;
-                left: 9px;
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: white;
-            }
-            </style>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+       <link rel="stylesheet" href="/static/add_question.css"> 
     </head>
     
     <body>
 
-        <h1>add/remove question page</h1>
+        <h2>הוספת/הסרת שאלות</h2>
 
         <div class="content">
 
             <form id="sign_in">
 
-                <input type="text" name="question" placeholder="question"/>
+                <input type="text" name="question" placeholder="שאלה"/>
                 <p></p>
-                <input type="text" name="answer" placeholder="answer"/>
+                <input type="text" name="answer" placeholder="תשובה"/>
                 <p></p>
-                <input type="text" name="option1" placeholder="option 1"/>
+                <input type="text" name="option1" placeholder="אפשרות 1"/>
                 <p></p>
-                <input type="text" name="option2" placeholder="option 2"/>
+                <input type="text" name="option2" placeholder="אפשרות 2"/>
                 <p></p>
-                <input type="text" name="option3" placeholder="option 3"/>
+                <input type="text" name="option3" placeholder="אפשרות 3"/>
                 <p></p>
-                <input type="text" name="option4" placeholder="option 4"/>
+                <input type="text" name="option4" placeholder="אפשרות 4"/>
                 <p></p>
-                <button id="sign">submit</button>
+                <button class="pushable" id="sign">
+                  <span class="shadow"></span>
+                  <span class="edge"></span>
+                  <span class="front">
+                  הוספה
+                  </span>
+              </button>
             </form>
             
             <p id="res"></p>
 
-            <ul id="question-list"></ul>
+            <div id="question-list"></div>
 
         </div>
 
