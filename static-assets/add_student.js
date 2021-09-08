@@ -37,23 +37,28 @@ console.log(url_string_user);
 
 function renderstudent(doc)
 {
-    let li = document.createElement('li');
+    let li = document.createElement('div');
+    let marg = document.createElement('div');
     let name = document.createElement('span');
     let username = document.createElement('span');
     let password = document.createElement('span');
     
-    let cross = document.createElement('div');
+    let cross = setCrossButton();
+    cross.setAttribute('data-id', doc.id);
 
-    li.setAttribute('data-id', doc.id);
+    li.setAttribute("class", "row q-row");
     name.textContent = doc.data().name;
     username.textContent = doc.data().username;
     password.textContent = doc.data().password;
-    cross.textContent = 'X';
-
+    name.setAttribute("class", "col-1 wide");
+    username.setAttribute("class", "col-2 wide");
+    password.setAttribute("class", "col-2 wide");
+    marg.setAttribute("class","col-2");
+    li.appendChild(marg);
+    li.appendChild(cross);
     li.appendChild(name);
     li.appendChild(username);
     li.appendChild(password);
-    li.appendChild(cross);
 
     qlist.appendChild(li);
 
@@ -64,10 +69,10 @@ function renderstudent(doc)
     })
 }
 
+let res = document.getElementById("res");
 form.addEventListener('submit',(e) => {
+    console.log("testing");
     e.preventDefault();
-
-    res = document.getElementById("res");
     let found = false;
 
     db.collection('students').get().then(snapshot => {
@@ -75,7 +80,7 @@ form.addEventListener('submit',(e) => {
             if(doc.data().username == form.username.value)
             {
                 found = true;
-                res.innerHTML = "student already exists."
+                res.innerHTML = "התלמיד/ה כבר קיים/ת"
             }
             
     })
@@ -83,7 +88,11 @@ form.addEventListener('submit',(e) => {
     return found;
 
 }).then(temp => {
-
+        console.log(allInputFieldsFilled());
+        if(!allInputFieldsFilled()){
+            res.innerHTML = "נא למלא את כל השדות";
+            return;
+        }
         if(found == false)
         {
             db.collection('students').add({
@@ -97,10 +106,30 @@ form.addEventListener('submit',(e) => {
             form.username.value = '';
             form.password.value = '';
             form.name.value = '';
-            res.innerHTML = "student added."
+            res.innerHTML = "התלמיד/ה נוסף/ה בהצלחה"
 
         }
     })
 
 
 })
+
+function setCrossButton(){
+    let cross = document.createElement('button');
+    cross.setAttribute("class","col-1 pushable");
+    let s1 = document.createElement("span");
+    let s2 =  document.createElement("span");
+    let s3 =  document.createElement("span");
+    s1.setAttribute("class","shadow");
+    s2.setAttribute("class","edge");
+    s3.setAttribute("class","front");
+    s3.textContent = 'X';
+    cross.appendChild(s1);
+    cross.appendChild(s2);
+    cross.appendChild(s3);
+    return cross;
+}
+
+function allInputFieldsFilled(){
+    return /\S/.test(form.username.value) && /\S/.test(form.password.value) && /\S/.test(form.name.value);
+}

@@ -1,4 +1,4 @@
-console.log('in teacher');
+//console.log('in teacher');
 const sList = document.querySelector('#student-list');
 let className = "";
 let posted = 0;
@@ -17,9 +17,9 @@ function get_person(doc){
         let nme = document.getElementById("name");
         let scre = document.getElementById("class");
 
-        usrnme.innerHTML = "username: " + doc.data().username;
-        nme.innerHTML = "name: " + doc.data().name;
-        scre.innerHTML = "class: " + doc.data().class;
+        usrnme.innerHTML = "אימייל: " + doc.data().username;
+        nme.innerHTML = "שם: " + doc.data().name;
+        scre.innerHTML = "כיתה: " + doc.data().class;
     }
 }
 
@@ -42,10 +42,20 @@ function renderStudents(doc){
 
     let qdiv = document.createElement('div');
     let name = document.createElement('p');
+    let grade = document.createElement('p');
+    let group = document.createElement('p');
+    qdiv.setAttribute("class","row");
 
-    name.textContent = "name: " + doc.data().name  +" score: " +  doc.data().score +
-    "\t group: " + doc.data().group;
+    name.setAttribute("class","col-4");
+    group.setAttribute("class","col-4");
+    grade.setAttribute("class","col-4");
+
+    name.textContent = doc.data().name;
+    grade.textContent = doc.data().score;
+    group.textContent = doc.data().group;
     qdiv.appendChild(name);
+    qdiv.appendChild(grade);
+    qdiv.appendChild(group);
     sList.appendChild(qdiv);
 }
 
@@ -83,7 +93,7 @@ document.getElementById('submit').onclick = function() {
             });
             return 0;
         }).then(res => {
-
+            setTableHeader();
             grades = []; 
                     posted = 1;
                     db.collection('students').get().then(snapshot => {
@@ -106,6 +116,25 @@ document.getElementById('submit').onclick = function() {
     }
 }
 
+function setTableHeader(){
+    let qdiv = document.createElement('div');
+    let name = document.createElement('p');
+    let grade = document.createElement('p');
+    let group = document.createElement('p');
+    qdiv.setAttribute("class","row");
+
+    name.setAttribute("class","col-4 table-header");
+    group.setAttribute("class","col-4 table-header");
+    grade.setAttribute("class","col-4 table-header");
+
+    name.textContent = "שם";
+    grade.textContent = "ציון";
+    group.textContent = "הקבצה";
+    qdiv.appendChild(name);
+    qdiv.appendChild(grade);
+    qdiv.appendChild(group);
+    sList.appendChild(qdiv);
+}
 
 document.getElementById('addstudent').onclick = function() {
     window.location.href = '/add/' + url_string_user 

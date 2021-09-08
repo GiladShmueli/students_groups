@@ -38,8 +38,9 @@ form.addEventListener('submit',(e) => {
         if(i == 0)
         {
             console.log('not ok');
-            notok = document.getElementById("notok");
-            notok.innerHTML = "incorrect username or password."
+            //notok = document.getElementById("notok");
+            //notok.innerHTML = "incorrect username or password."
+            alert("incorrect username or password.");
         }
     else if(i == 1)
         console.log('ok');
