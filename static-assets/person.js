@@ -40,9 +40,11 @@ db.collection('students').doc(url_string_user).get().then(snapshot => {
 
 let info = [];
 let groups, centers;
-
+let disabled = false;
 document.getElementById('show_graph').onclick = function() {
-    document.getElementById('show_graph').disabled = true;
+    if(disabled)
+        return;
+    disabled = true;
     db.collection('students').get().then(snapshot => {
         info = [];
         snapshot.docs.forEach(doc => {
