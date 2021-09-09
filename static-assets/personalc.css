@@ -90,4 +90,6 @@ il{
 .student_data {
     font-weight: bold;
     font-size: 18px;
+    direction: rtl;
+    text-align: right;
 }

@@ -16,11 +16,11 @@ function get_person(doc){
         let cls = document.getElementById("class");
         let grp = document.getElementById("group");
 
-        usrnme.innerHTML = "username: " + doc.data().username;
-        nme.innerHTML = "name: " + doc.data().name;
-        scre.innerHTML = "score: " + doc.data().score.toString();
-        cls.innerHTML = "class: " + doc.data().class;
-        grp.innerHTML = "group: " + doc.data().group;
+        usrnme.innerHTML = "אימייל: " + doc.data().username;
+        nme.innerHTML = "שם: " + doc.data().name;
+        scre.innerHTML = "ציון: " + doc.data().score.toString();
+        cls.innerHTML = "כיתה: " + doc.data().class;
+        grp.innerHTML = "הקבצה: " + doc.data().group;
         className = doc.data().class;
         myScore = doc.data().score;
     }

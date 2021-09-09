@@ -22,7 +22,7 @@ db.collection('teachers1').doc(url_string_user).get().then(snapshot => {
         changes.forEach(change=>{
 
             if(change.type == "added" && change.doc.data().class == myclass){
-                renderstudent(change.doc)
+                renderstudent(change.doc);
             }
             else if(change.type == "removed" && change.doc.data().class == myclass){
             let li = qlist.querySelector('[data-id=' + change.doc.id + ']');
@@ -44,7 +44,8 @@ function renderstudent(doc)
     let password = document.createElement('span');
     
     let cross = setCrossButton();
-    cross.setAttribute('data-id', doc.id);
+   //cross.setAttribute('data-id', doc.id);
+    li.setAttribute('data-id', doc.id);
 
     li.setAttribute("class", "row q-row");
     name.textContent = doc.data().name;
@@ -64,10 +65,13 @@ function renderstudent(doc)
 
     cross.addEventListener('click',(e)=>{
         e.stopPropagation();
+        debug = e;
         let id = e.target.parentElement.getAttribute('data-id');
+        console.log(id);
         db.collection('students').doc(id).delete();
     })
 }
+let debug;
 
 let res = document.getElementById("res");
 form.addEventListener('submit',(e) => {
@@ -116,17 +120,17 @@ form.addEventListener('submit',(e) => {
 
 function setCrossButton(){
     let cross = document.createElement('button');
-    cross.setAttribute("class","col-1 pushable");
-    let s1 = document.createElement("span");
-    let s2 =  document.createElement("span");
-    let s3 =  document.createElement("span");
-    s1.setAttribute("class","shadow");
-    s2.setAttribute("class","edge");
-    s3.setAttribute("class","front");
-    s3.textContent = 'X';
-    cross.appendChild(s1);
-    cross.appendChild(s2);
-    cross.appendChild(s3);
+    cross.setAttribute("class","col-1 pushable shadow edge front");
+    // let s1 = document.createElement("span");
+    // let s2 =  document.createElement("span");
+    // let s3 =  document.createElement("span");
+    // s1.setAttribute("class","shadow");
+    // s2.setAttribute("class","edge");
+    // s3.setAttribute("class","front");
+    cross.textContent = 'X';
+    // cross.appendChild(s1);
+    // cross.appendChild(s2);
+    // cross.appendChild(s3);
     return cross;
 }
 

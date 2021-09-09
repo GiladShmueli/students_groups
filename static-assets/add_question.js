@@ -53,8 +53,9 @@ function renderques(doc)
     // let option3 = document.createElement('span');
     // let option4 = document.createElement('span');
     let cross = setCrossButton();
-    cross.setAttribute('data-id', doc.id);
+    //cross.setAttribute('data-id', doc.id);
     li.setAttribute('data-id', doc.id);
+    
     li.setAttribute("class", "row q-row");
     question.textContent = doc.data().question;
     question.setAttribute("class","col-9");
@@ -80,25 +81,24 @@ function renderques(doc)
     }
     cross.addEventListener('click',(e)=>{
         e.stopPropagation();
-        let id = e.target.parentElement.getAttribute('data-id');
-        console.log(id);
+        let id = e.target.parentElement.parentElement.getAttribute('data-id');
         db.collection('tests1').doc(id).delete();
     })
 }
 
 function setCrossButton(){
     let cross = document.createElement('button');
-    cross.setAttribute("class","col-1 pushable");
-    let s1 = document.createElement("span");
-    let s2 =  document.createElement("span");
-    let s3 =  document.createElement("span");
-    s1.setAttribute("class","shadow");
-    s2.setAttribute("class","edge");
-    s3.setAttribute("class","front");
-    s3.textContent = 'X';
-    cross.appendChild(s1);
-    cross.appendChild(s2);
-    cross.appendChild(s3);
+    cross.setAttribute("class","col-1 pushable shadow edge front");
+    // let s1 = document.createElement("span");
+    // let s2 =  document.createElement("span");
+    // let s3 =  document.createElement("span");
+    // s1.setAttribute("class","shadow");
+    // s2.setAttribute("class","edge");
+    // s3.setAttribute("class","front");
+    cross.textContent = 'X';
+    // cross.appendChild(s1);
+    // cross.appendChild(s2);
+    // cross.appendChild(s3);
     return cross;
 }
 
