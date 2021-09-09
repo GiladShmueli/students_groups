@@ -32,4 +32,4 @@ app.get("/test/:x", (req,res)=>{
 
 app.use((req, res) => res.sendStatus(404));
 
-app.listen(port, () => console.log(`server running on http://localhost:${port}`));
+app.listen(process.env.PORT || 5002);
