@@ -42,6 +42,7 @@ let info = [];
 let groups, centers;
 
 document.getElementById('show_graph').onclick = function() {
+    document.getElementById('show_graph').disabled = true;
     db.collection('students').get().then(snapshot => {
         info = [];
         snapshot.docs.forEach(doc => {
