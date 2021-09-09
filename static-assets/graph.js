@@ -74,7 +74,7 @@ function drawMyGraph(test_results, score) {
         {
             if(test_results[i]===score)
             {
-                ctx.fillStyle = "#FF1A10";
+                ctx.fillStyle = "#FF0000";
                 marked = true;
             }
         } else
