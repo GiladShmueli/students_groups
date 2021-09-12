@@ -150,3 +150,7 @@ function allInputFieldsFilled(){
     return /\S/.test(form.question.value) && /\S/.test(form.question.value) && /\S/.test(form.option1.value) &&
             /\S/.test(form.option2.value) && /\S/.test(form.option3.value) && /\S/.test(form.option4.value);
 }
+
+document.getElementById('back').onclick = function() {
+    window.location.href = '/teacherp/' + url_string_user 
+}

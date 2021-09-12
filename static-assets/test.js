@@ -63,16 +63,14 @@ db.collection('tests1').get().then(snapshot => {
     });*/
     let test = [];
     let temp = snapshot.docs;
-    console.log(temp);
     let q;
     for(let i=0; i<30 ; i++){
         q = Math.floor(Math.random() * temp.length);
         test.push(temp.splice(q, 1)[0]);
     }
-    console.log(test);
     test.forEach(question =>
         {
-            console.log(question.data().answer);
+            //console.log(question.data().answer);
             renderTest(question);
         })
 });
@@ -145,14 +143,6 @@ document.getElementById('submit').onclick = function() {
     ////window.location.href='/personal/' + url_string_user;
 
 }
-
-//disable refreshing
-function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
-// To disable f5
-    /* jQuery < 1.7 */
-$(document).bind("keydown", disableF5);
-/* OR jQuery >= 1.7 */
-$(document).on("keydown", disableF5);
 
 // // To re-enable f5
 //     /* jQuery < 1.7 */

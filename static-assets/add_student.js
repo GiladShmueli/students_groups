@@ -137,3 +137,7 @@ function setCrossButton(){
 function allInputFieldsFilled(){
     return /\S/.test(form.username.value) && /\S/.test(form.password.value) && /\S/.test(form.name.value);
 }
+
+document.getElementById('back').onclick = function() {
+    window.location.href = '/teacherp/' + url_string_user 
+}

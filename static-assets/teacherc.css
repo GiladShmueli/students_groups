@@ -96,3 +96,8 @@ il{
 .table-header{
     text-decoration: underline;
 }
+
+#class-data {
+    display: inline-flexbox;
+    /*display: inline;*/
+}
