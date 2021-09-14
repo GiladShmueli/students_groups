@@ -73,49 +73,94 @@ function renderstudent(doc)
 }
 let debug;
 
+async function checkTeacher(){
+    var tfound = false;
+    db.collection('teachers1').get().then(snapshot => {
+        snapshot.docs.forEach(doc => {
+            console.log(doc.data().username);
+            if(doc.data().username == form.username.value)
+            {
+                tfound = true;
+                res.innerHTML = "קיים מורה בכתובת זאת"
+            }
+            
+        })
+    }).then(temp =>{
+        return tfound; 
+    })
+    //return tfound;
+}
+
 let res = document.getElementById("res");
 form.addEventListener('submit',(e) => {
     console.log("testing");
     e.preventDefault();
-    let found = false;
+    var found = false;
 
-    db.collection('students').get().then(snapshot => {
+
+
+    db.collection('teachers1').get().then(snapshot => {
+        var found2 = false;
         snapshot.docs.forEach(doc => {
+            console.log(doc.data().username);
             if(doc.data().username == form.username.value)
             {
-                found = true;
-                res.innerHTML = "התלמיד/ה כבר קיים/ת"
+                found2 = true;
+                res.innerHTML = "קיים מורה בכתובת זאת"
             }
             
-    })
-
-    return found;
-
-}).then(temp => {
-        console.log(allInputFieldsFilled());
-        if(!allInputFieldsFilled()){
-            res.innerHTML = "נא למלא את כל השדות";
-            return;
-        }
-        if(found == false)
+        })
+        return found2;
+    }).then(ttemp =>
+    {
+        console.log("here " + ttemp);
+        if(ttemp)
         {
-            db.collection('students').add({
-                username: form.username.value,
-                password: form.password.value,
-                group: -1,
-                score: -1,
-                name: form.name.value,
-                class: myclass
-            });
-            form.username.value = '';
-            form.password.value = '';
-            form.name.value = '';
-            res.innerHTML = "התלמיד/ה נוסף/ה בהצלחה"
-
+            console.log("here");
+            throw new Error("error");
         }
+        else
+        {
+            db.collection('students').get().then(snapshot => {
+                snapshot.docs.forEach(doc => {
+                    if(doc.data().username == form.username.value)
+                    {
+                        found = true;
+                        res.innerHTML = "התלמיד/ה כבר קיים/ת"
+                    }
+                    
+                })
+
+                return found;
+
+            }).then(temp => {
+                console.log(allInputFieldsFilled());
+                if(!allInputFieldsFilled()){
+                    res.innerHTML = "נא למלא את כל השדות";
+                    return;
+                }
+                if(found == false)
+                {
+                    db.collection('students').add({
+                        username: form.username.value,
+                        password: form.password.value,
+                        group: -1,
+                        score: -1,
+                        name: form.name.value,
+                        class: myclass
+                    });
+                    form.username.value = '';
+                    form.password.value = '';
+                    form.name.value = '';
+                    res.innerHTML = "התלמיד/ה נוסף/ה בהצלחה"
+
+                }
+            })
+        }
+
+    }).catch(error =>{
+
     })
-
-
 })
 
 function setCrossButton(){
