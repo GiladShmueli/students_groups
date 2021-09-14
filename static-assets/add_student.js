@@ -65,34 +65,44 @@ function renderstudent(doc)
 
     cross.addEventListener('click',(e)=>{
         e.stopPropagation();
-        debug = e;
         let id = e.target.parentElement.getAttribute('data-id');
         console.log(id);
         db.collection('students').doc(id).delete();
     })
 }
-let debug;
 
 let res = document.getElementById("res");
 form.addEventListener('submit',(e) => {
     console.log("testing");
     e.preventDefault();
     let found = false;
+    db.collection('teachers1').get().then(snapshot => {
+        snapshot.docs.forEach(doc => {
+            if(doc.data().username == form.username.value)
+            {
+                found = true;
+                res.innerHTML = "ניסית להירשם עם אימייל רשום במערכת של מורה";
+            }
+            
+         })
+    console.log("foundTeacher  " + found); 
+    // if(found == true)
+    //     return true;
 
     db.collection('students').get().then(snapshot => {
         snapshot.docs.forEach(doc => {
             if(doc.data().username == form.username.value)
             {
                 found = true;
-                res.innerHTML = "התלמיד/ה כבר קיים/ת"
+                res.innerHTML = "התלמיד/ה כבר קיים/ת";
             }
             
     })
-
-    return found;
-
-}).then(temp => {
-        console.log(allInputFieldsFilled());
+    console.log("foundStudent  " + found);
+    //return found;
+    
+//})}).then(temp => {
+        console.log("found  " + found);
         if(!allInputFieldsFilled()){
             res.innerHTML = "נא למלא את כל השדות";
             return;
@@ -113,10 +123,10 @@ form.addEventListener('submit',(e) => {
             res.innerHTML = "התלמיד/ה נוסף/ה בהצלחה"
 
         }
+        else
+            found = false;        
     })
-
-
-})
+})})
 
 function setCrossButton(){
     let cross = document.createElement('button');
