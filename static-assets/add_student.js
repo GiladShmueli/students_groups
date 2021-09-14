@@ -106,7 +106,7 @@ form.addEventListener('submit',(e) => {
             if(doc.data().username == form.username.value)
             {
                 found2 = true;
-                res.innerHTML = "קיים מורה בכתובת זאת"
+                res.innerHTML = "קיים/ת מורה עם אימייל זה"
             }
             
         })
